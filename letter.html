@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <style>
+        /* Prevent scrolling on the body */
+        body, html {
+            overflow: hidden;
+        }
+
+        /* Smooth transition for size change */
+        .yes-button {
+            transition: all 0.5s ease-in-out;
+        }
+
+        /* Absolute positioning for the No button */
+        .no-button {
+            transition: transform 0.5s ease-in-out;
+            position: absolute; /* Remove from flow and move freely */
+            bottom: 0; /* Start from the bottom of the container */
+            margin-bottom: 170px;
+        }
+    </style>
+</head>
+<body class="bg-[#CCDF92] h-screen w-screen p-6 text-white">
+    <div class="flex flex-col items-center justify-center bg-[#DE3163] h-full relative">
+        <div>
+            <h1 class="text-2xl text-center mb-4 font-bold">HAPPY VALENTINES DAY!!!</h1>
+        </div>
+        <div>
+            <!-- Adding an ID to the image for easy reference -->
+            <img id="main-image" class="size-32" src="./assets/1.jfif" alt="Valentine Image">
+        </div>
+        <div class="mt-8">
+            <h1 class="text-2xl text-center">Will you be my <br>Valentine??</h1>
+        </div>
+        <div class="flex flex-col items-center mt-8" id="button-container">
+            <a id="yesbtn" class="bg-[#5CB338] text-xl p-4 px-10 rounded-md font-semibold yes-button" href="./yehey.html">Yes</a>
+            <button id="nobtn" class="bg-[#B82132] text-xl p-4 px-10 rounded-md font-semibold no-button">No</button>
+        </div>
+    </div>
+
+    <script>
+        // Get references to the buttons and the image
+        const yesButton = document.getElementById('yesbtn');
+        const noButton = document.getElementById('nobtn');
+        const mainImage = document.getElementById('main-image'); // Reference to the image
+        
+        let yesButtonSize = 1;  // Tracks the current size of the Yes button
+
+        // Array of image sources
+        const images = [
+            './assets/1.jfif', // Image 1
+            './assets/2.gif',  // Image 2
+            './assets/3.jpg',  // Image 3
+            './assets/4.jfif',  // Image 4 (you can replace this with another image if needed)
+            './assets/5.jfif'   // Image 5 (you can replace this with another image if needed)
+        ];
+
+        let currentImageIndex = 0; // Index to keep track of the current image
+
+        // Array of messages for the No button
+        const noButtonMessages = [
+            "Are you sure?",
+            "Really sure?",
+            "Are you positive?",
+            "Steph pleaseee!",
+            "Just think about it...",
+            "If you say no, I'll be very sad...",
+        ];
+
+        // Function to change the image and grow the Yes button when the No button is clicked
+        function increaseYesButtonSize() {
+            yesButtonSize += 0.3;  // Increment the size multiplier
+
+            // Apply the scaling to the Yes button
+            yesButton.style.transform = `scale(${yesButtonSize})`;
+
+            // Optionally limit the maximum scale
+            if (yesButtonSize > 5) {
+                yesButtonSize = 20;  // Max limit of scaling
+            }
+
+            // Move the No button out of the visible area (off-screen)
+            const offset = (yesButtonSize - 1) * 40;  // Adjust multiplier for movement
+            noButton.style.transform = `translateY(${offset}px)`;  // Apply offset to move the No button
+
+            // Change the image by updating the src attribute based on the current index
+            currentImageIndex = (currentImageIndex + 1) % images.length;  // Cycle through the images
+            mainImage.src = images[currentImageIndex]; // Update the image source
+        }
+
+        // Function to change the text of the No button to a random message
+        function changeNoButtonText() {
+            // Pick a random message from the array
+            const randomMessage = noButtonMessages[Math.floor(Math.random() * noButtonMessages.length)];
+            noButton.textContent = randomMessage;
+        }
+
+        // Add event listener to the No button to change text and image
+        noButton.addEventListener('click', () => {
+            increaseYesButtonSize();  // Change the Yes button size and image
+            changeNoButtonText();     // Change the No button text
+        });
+    </script>
+</body>
+</html>
