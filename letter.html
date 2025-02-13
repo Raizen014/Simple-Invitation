@@ -72,7 +72,7 @@
 
         // Function to change the image and grow the Yes button when the No button is clicked
         function increaseYesButtonSize() {
-            yesButtonSize += 0.3;  // Increment the size multiplier
+            yesButtonSize += 0.6;  // Increment the size multiplier
 
             // Apply the scaling to the Yes button
             yesButton.style.transform = `scale(${yesButtonSize})`;
@@ -83,7 +83,7 @@
             }
 
             // Move the No button out of the visible area (off-screen)
-            const offset = (yesButtonSize - 1) * 40;  // Adjust multiplier for movement
+            const offset = (yesButtonSize - 1) * 50;  // Adjust multiplier for movement
             noButton.style.transform = `translateY(${offset}px)`;  // Apply offset to move the No button
 
             // Change the image by updating the src attribute based on the current index
